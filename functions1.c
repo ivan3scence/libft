@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functions1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdonny <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/06 12:37:50 by sdonny            #+#    #+#             */
+/*   Updated: 2021/10/06 18:31:30 by sdonny           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
 int	ft_isalpha(int c)
@@ -73,14 +85,80 @@ size_t	ft_strlen(const char *str)
 void	*ft_memset(void *s, int c, size_t n)
 {
 	void	*p;
-	
+
 	p = s;
+	if (sizeof(s) < n)
+	{
+		return (s);
+	}
 	if (s)
 	{
 		while (n--)
 		{
-			*(unsigned char	*)(s++) = c;
+			*(unsigned char *)(p++) = (unsigned char)c;
 		}
 	}
-	return(p);
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	if (n)
+	{
+		ft_memset(s, 0, n);
+	}
+}
+
+void	*ft_memspy(void *restrict dst, const void *restrict src, size_t n)
+{
+	void	*restrict		p;
+	const void	*restrict	s;
+
+	p = dst;
+	s = src;
+	while (n--)
+	{
+		*(unsigned char *)(p++) = *(unsigned char *)(s++);
+	}
+	return (dst);
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	unsigned char	*d;
+	unsigned char	*s;
+
+	d = (unsigned char *) dst;
+	s = (unsigned char *) src;
+	if (src < dst)
+	{
+		while (len--)
+		{
+			*(d + len) = *(s + len);
+		}
+	}
+	else if (src > dst)
+	{
+		while (len--)
+		{
+			*d = *s;
+			d++;
+			s++;
+		}
+	}
+	return (dst);
+}
+
+size_t	ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsize)
+{
+	const char	*d;
+
+	d = (const char *) dst;
+	while (dstsize - 1)
+	{
+		*(unsigned char *) (dst++) = *(unsigned char *) (src++);
+		dstsize--;
+	}
+	*(unsigned char *) dst = '\0';
+	return (ft_strlen(d));
 }
