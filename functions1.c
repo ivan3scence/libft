@@ -151,14 +151,17 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 size_t	ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsize)
 {
-	const char	*d;
+	size_t		size;
+	size_t		sl;
 
-	d = (const char *) dst;
-	while (dstsize - 1)
+	sl = ft_strlen(src);
+	size = dstsize;
+	while ((dstsize - 1) && *src)
 	{
 		*(unsigned char *) (dst++) = *(unsigned char *) (src++);
 		dstsize--;
 	}
-	*(unsigned char *) dst = '\0';
-	return (ft_strlen(d));
+	if (size)
+		*(unsigned char *) dst = '\0';
+	return (sl);
 }
