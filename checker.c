@@ -1,11 +1,18 @@
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include "ft_list.h"
 #include <ctype.h>
 #include <strings.h>
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void *ft_memset(void *s, int c, size_t n);
+
+int	ft_toupper(int	c);
+
+char    *ft_strchr(const char   *s, int c);
+
+char    *ft_strrchr(const char   *s, int c);
 
 void	*ft_memmove(void *dst, const void *src, size_t len);
 
@@ -139,7 +146,7 @@ int main()
 	printf ("b new: %s\n", b);*/
 
 
-	char	s[11]="0123456789";
+	/*char	s[11]="0123456789";
 	char	ss[11]="0123456789";
 	char	d[11];
 	char	dd[11];
@@ -147,13 +154,24 @@ int main()
 	size_t	zz;
 
 	printf("s&d old: %s, %s\n", s, d);
-	z = strlcpy(d, s, 11);
+	z = strlcpy(d, s,  11);
 	printf("s&d new: %s, %s\n", s, d);
 	printf("result: %lu\n", z);
 	
 	printf("ss&dd old: %s, %s\n", ss, dd);
 	zz = ft_strlcpy(dd, ss, 11);
 	printf("ss&dd new: %s, %s\n", ss, dd);
-	printf("resultttt: %lu\n", zz);
+	printf("resultttt: %lu\n", zz);*/
 
+
+	/*printf("%c\n", toupper(107));
+	printf("%c\n", ft_toupper(107));*/
+
+
+	/*printf("%s\n", strchr("123456", '\0'));
+	printf("%s\n", ft_strchr("123456", '\0'));*/
+
+
+	printf("%s\n", strrchr("123456", '\0'));
+	printf("%s\n", ft_strrchr("123456", '\0'));
 }

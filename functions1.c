@@ -6,11 +6,11 @@
 /*   By: sdonny <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:37:50 by sdonny            #+#    #+#             */
-/*   Updated: 2021/10/06 18:31:30 by sdonny           ###   ########.fr       */
+/*   Updated: 2021/10/07 16:42:51 by sdonny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "ft_list.h"
 
 int	ft_isalpha(int c)
 {
@@ -87,16 +87,13 @@ void	*ft_memset(void *s, int c, size_t n)
 	void	*p;
 
 	p = s;
-	if (sizeof(s) < n)
+	/*if (sizeof(s) < n)
 	{
 		return (s);
-	}
-	if (s)
+	}*/
+	while (n--)
 	{
-		while (n--)
-		{
-			*(unsigned char *)(p++) = (unsigned char)c;
-		}
+		*(unsigned char *)(p++) = (unsigned char)c;
 	}
 	return (s);
 }
@@ -109,11 +106,13 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_memspy(void *restrict dst, const void *restrict src, size_t n)
+void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
 {
 	void	*restrict		p;
 	const void	*restrict	s;
 
+	if (!dst && !src)
+		return (dst);
 	p = dst;
 	s = src;
 	while (n--)
@@ -156,12 +155,81 @@ size_t	ft_strlcpy(char * restrict dst, const char * restrict src, size_t dstsize
 
 	sl = ft_strlen(src);
 	size = dstsize;
-	while ((dstsize - 1) && *src)
+	if (dstsize == 0)
+		return (sl);
+	while ((dstsize - 1 > 0) && *src)
 	{
 		*(unsigned char *) (dst++) = *(unsigned char *) (src++);
 		dstsize--;
 	}
-	if (size)
+	if (size > 0)
 		*(unsigned char *) dst = '\0';
 	return (sl);
 }
+
+size_t	ft_strlcat(char * restrict dst, const char * restrict src, size_t dstsize)
+{
+	size_t		size;
+	size_t		sl;
+
+	size = dstsize;
+	sl = ft_strlen(src) + ft_strlen(dst);
+	if (ft_strlen(src) + ft_strlen(dst) > dstsize)
+		return (ft_strlen(dst) + dstsize);	
+	if (dstsize == 0)
+		return (sl);
+	while ((dstsize - 1 > 0) && *dst)
+	{
+		dstsize--;
+		dst++;
+	}
+	while ((dstsize - 1 > 0) && *src)
+	{
+		*(unsigned char *) (dst++) = *(unsigned char *) (src++);
+		dstsize--;
+	}
+	if (size > 0)
+		*(unsigned char *) dst = '\0';
+	return (sl);
+}
+
+int	ft_toupper(int	c)
+{
+	if (c - 32 > 64 && c - 32 < 91)
+		return (c - 32);
+	return (c);
+}
+
+int    ft_tolower(int    c)
+{
+    if (c + 32 > 96 && c + 32 < 123)
+        return (c + 32);
+    return (c);
+}
+
+char    *ft_strchr(const char   *s, int c)
+{
+    if (c == '\0')
+		return ((char	*) (&s[ft_strlen(s)]));
+	while (*s)
+	{
+		if (*s == c)
+			return ((char	*) s);
+		s++;
+	}
+	return (0);
+}
+
+char    *ft_strrchr(const char   *s, int c)
+{
+    if (c == '\0')
+		return ((char	*) (&s[ft_strlen(s)]));
+	while (*s)
+	{
+		if (*s == c)
+			return ((char	*) s);
+		s++;
+	}
+	return (0);
+}
+
