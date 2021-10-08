@@ -8,7 +8,23 @@
 
 void *ft_memset(void *s, int c, size_t n);
 
+char *ft_substr(char const *s, unsigned int start, size_t len);
+
+void	*ft_calloc(size_t count, size_t size);
+
+char	*ft_strdup(const char	*src);
+
 int	ft_toupper(int	c);
+
+int	ft_atoi(const char *str);
+
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+
+int	ft_memcmp(const void *s1, const void *s2, size_t n);
+
+void	*ft_memchr(const void *s, int c, size_t n);
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 char    *ft_strchr(const char   *s, int c);
 
@@ -172,6 +188,94 @@ int main()
 	printf("%s\n", ft_strchr("123456", '\0'));*/
 
 
-	printf("%s\n", strrchr("123456", '\0'));
-	printf("%s\n", ft_strrchr("123456", '\0'));
+	//printf("%s\n", strrchr("123436", '3'));
+	//printf("%s\n", ft_strrchr("123436", '3'));
+	
+
+	//printf("%d\n", strncmp("12345", "1234567", 4));
+	//printf("%d\n", ft_strncmp("12345", "1234567", 4));
+
+
+	
+	//char	a[11]="0123456789";
+	//char	b[11]="0123456789";
+	//void	*aa=&a;
+	//void	*bb=&b;
+
+	//printf("%s\n", memchr(aa, 51, 11));
+	//printf("%s\n", ft_memchr(bb, 51, 11));
+
+
+	//char	a[11]="0123356789";
+	//char	b[11]="0123456789";
+	//void	*aa=&a;
+	//void	*bb=&b;
+
+	//printf("%d\n", memcmp(aa, NULL, 11));
+	//printf("%d\n", ft_memcmp(aa, NULL, 11));
+
+	
+	//printf("%s\n", strnstr("0123456789", "45", 11));
+	//printf("%s\n", ft_strnstr("0123456789", "45", 11));
+
+
+	//printf("%d\n", atoi("9223372036888854775809"));
+	//printf("%d\n", ft_atoi("9223378882036854775809"));
+
+
+	//char	*a;
+	//char	*aa;
+	//int	i=-1;
+
+	//a = (char	*) calloc(4, 0);
+	//aa =(char	*) ft_calloc(4, 0);
+	//while (++i < 4)
+	//{
+	//	printf("a:%d, %lu\n", *a, sizeof(*a));
+	//	a++;
+	//}
+	//i = -1;
+	//while (++i < 4)
+	//{
+	//	printf("aa:%d, %lu\n", *aa, sizeof(*aa));
+	//	aa++;
+	//}
+	//free(a-4);
+	//free(aa-4);
+
+	//int	size=8539;
+	//void * d1 = ft_calloc(size, sizeof(int));
+	//void * d2 = calloc(size, sizeof(int));
+	//printf("%d\n", memcmp(d1, d2, size*sizeof(int)));
+
+	
+	//char *src = "aaa";
+	//char dst1[20];
+	//char dst2[20];
+	//int ret1;
+	//int ret2;
+	//printf("%lu\n", strlen(dst1));
+
+	//ret2 = ft_strlcat(dst2, src, 20);
+	//ret1 = strlcat(dst1, src, 20);
+	//printf("ret1:%d\n", ret1);
+	//printf("ret2:%d\n", ret2);
+
+	//char	s1[4] = "";
+	//char	s2[4] = "";
+	//int	r2;
+	//int	r1;
+	//r1 = strlcat(s1, "thx to ntoniolo for this test !", 4);
+	//r2 = ft_strlcat(s2, "thx to ntoniolo for this test !", 4);	
+	//printf("r1:%d\n", r1);
+	//printf("r2:%d\n", r2);
+
+	int	r1;
+	int r2;
+	char s1[4] = "";
+	char s2[4] = "";
+	r1 = __builtin___strlcat_chk (s1, "thx to ntoniolo for this test !", 4, __builtin_object_size (s1, 2 > 1 ? 1 : 0));
+	r2 = ft_strlcat(s2, "thx to ntoniolo for this test !", 4);
+	printf("r1:%s, %d\n", s1, r1);
+	printf("r2:%s, %d\n", s2, r2);
 }
