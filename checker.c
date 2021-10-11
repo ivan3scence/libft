@@ -6,13 +6,45 @@
 #include <unistd.h>
 #include <stdio.h>
 
+t_list *ft_lstnew(void *content);
+
+int ft_lstsize(t_list *lst);
+
+void ft_lstadd_front(t_list **lst, t_list *new);
+
+t_list *ft_lstlast(t_list *lst);
+
+void ft_lstadd_back(t_list **lst, t_list *new);
+
+void ft_lstdelone(t_list *lst, void (*del)(void	*));
+
+void ft_lstclear(t_list **lst, void (*del)(void	*));
+
+t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
 void *ft_memset(void *s, int c, size_t n);
+
+char *ft_itoa(int n);
+
+void	ft_striteri(char	*s, void (*f)(unsigned int, char*));
+
+void ft_putendl_fd(char *s, int fd);
+
+void ft_putstr_fd(char *s, int fd);
+
+char *ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 char *ft_substr(char const *s, unsigned int start, size_t len);
 
 void	*ft_calloc(size_t count, size_t size);
 
+char *ft_strjoin(char const *s1, char const *s2);
+
 char	*ft_strdup(const char	*src);
+
+char **ft_split(char const *s, char c);
+
+char *ft_strtrim(char const *s1, char const *set);
 
 int	ft_toupper(int	c);
 
@@ -49,6 +81,12 @@ int     ft_isdigit(int c);
 size_t ft_strlen(const char *s);
 
 int     ft_isprint(int c);
+
+
+char	ft_prikol(unsigned int	i, char	c)
+{
+	return(c + i);
+}	
 
 int main()
 {
@@ -270,12 +308,41 @@ int main()
 	//printf("r1:%d\n", r1);
 	//printf("r2:%d\n", r2);
 
-	int	r1;
-	int r2;
-	char s1[4] = "";
-	char s2[4] = "";
-	r1 = __builtin___strlcat_chk (s1, "thx to ntoniolo for this test !", 4, __builtin_object_size (s1, 2 > 1 ? 1 : 0));
-	r2 = ft_strlcat(s2, "thx to ntoniolo for this test !", 4);
-	printf("r1:%s, %d\n", s1, r1);
-	printf("r2:%s, %d\n", s2, r2);
+	//int	r1;
+	//int r2;
+	//char s1[4] = "";
+	//char s2[4] = "";
+	//r1 = __builtin___strlcat_chk (s1, "thx to ntoniolo for this test !", 4, __builtin_object_size (s1, 2 > 1 ? 1 : 0));
+	//r2 = ft_strlcat(s2, "thx to ntoniolo for this test !", 4);
+	//printf("r1:%s, %d\n", s1, r1);
+	//printf("r2:%s, %d\n", s2, r2);
+
+
+	//printf("%s\n", ft_substr("1234567", 19, 19));
+
+	//char	**a=ft_split("qw rt yu", ' ');
+	//int	i=-1;
+	//while (a[++i])
+	//	printf("%s\n", a[i]);
+
+
+	//printf("%s\n", ft_itoa(-0));
+	
+	//printf("%s\n", ft_strmapi("prikol", ft_prikol));
+
+
+	//t_list	*l = ft_lstnew(strdup(" 1 2 3 "));
+	//t_list	*ret;
+	//l->next = ft_lstnew(strdup("ss"));
+	//l->next->next = ft_lstnew(strdup("-_-"));
+	//ret = ft_lstmap(l, lstmap_f, NULL);
+	////printf("%s\n", ret->content);
+	//printf("%s\n", l->next->next->content);
+	
+
+	t_list	*l = ft_lstnew(strdup("nyancat"));
+	l->next = ft_lstnew(strdup("#TEST#"));
+	ft_lstclear(&(l->next), lstdelone_f);	
+	printf("%p\n", l->next);
+	printf("%s\n", (char *) l->next->content);
 }
