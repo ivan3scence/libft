@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+int	ft_isprint(int c)
 {
-	if ((c > 64 && c < 91) || (c > 96 && c < 123))
+	if (c >= 32 && c < 127)
 	{
-		return (1024);
+		return (16384);
 	}
 	else
 	{
@@ -24,38 +24,48 @@ int	ft_isalpha(int c)
 	}
 }
 
-int	ft_isdigit(int c)
+size_t	ft_strlen(const char *str)
 {
-	if (c > 47 && c < 58)
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	void	*p;
+
+	p = s;
+	while (n--)
 	{
-		return (2048);
+		*(unsigned char *)(p++) = (unsigned char)c;
 	}
-	else
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	if (n)
 	{
-		return (0);
+		ft_memset(s, 0, n);
 	}
 }
 
-int	ft_isalnum(int c)
+void	*ft_memcpy(void * dst, const void * src, size_t n)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-	{
-		return (8);
-	}
-	else
-	{
-		return (0);
-	}
-}
+	void	*		p;
+	const void	*	s;
 
-int	ft_isascii(int c)
-{
-	if (c >= 0 && c < 128)
+	if (!dst && !src)
+		return (dst);
+	p = dst;
+	s = src;
+	while (n--)
 	{
-		return (1);
+		*(unsigned char *)(p++) = *(unsigned char *)(s++);
 	}
-	else
-	{
-		return (0);
-	}
+	return (dst);
 }

@@ -12,50 +12,49 @@
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+void	ft_putstr_fd(char	*s, int	fd)
 {
-	if ((c > 64 && c < 91) || (c > 96 && c < 123))
+	if (fd != -1)
 	{
-		return (1024);
-	}
-	else
-	{
-		return (0);
+		while (*s)
+		{
+			ft_putchar_fd(*s, fd);
+			s++;
+		}
 	}
 }
 
-int	ft_isdigit(int c)
+void	ft_putendl_fd(char	*s, int	fd)
 {
-	if (c > 47 && c < 58)
+	if (fd != -1)
 	{
-		return (2048);
-	}
-	else
-	{
-		return (0);
+		ft_putstr_fd(s, fd);
+		write(fd, "\n", 1);
 	}
 }
 
-int	ft_isalnum(int c)
+void	ft_putnbr_fd(int	n, int	fd)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-	{
-		return (8);
-	}
-	else
-	{
-		return (0);
-	}
-}
+	int	i;
+	int	k;
+	int	reverse[12];
 
-int	ft_isascii(int c)
-{
-	if (c >= 0 && c < 128)
+	if (fd == -1)
+		return ;
+	k = 1;
+	if (n < 0)
 	{
-		return (1);
+		ft_putchar_fd('-', fd);
+		k = -1;
 	}
-	else
+	if (n == 0)
+		ft_putchar_fd('0', fd);
+	i = 0;
+	while (n != 0)
 	{
-		return (0);
+		reverse[i++] = (n % 10) * k + 48;
+		n = n / 10;
 	}
+	while (i-- > 0)
+		ft_putchar_fd(reverse[i], fd);
 }

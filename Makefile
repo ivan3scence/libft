@@ -12,7 +12,7 @@
 
 CFLAGS = -Wall -Wextra -Werror
 
-HEADERS = ft_list.h
+HEADERS = libft.h
 
 CC = gcc
 
@@ -20,10 +20,10 @@ RM = rm -f
 
 NAME = libft.a 
 
-SOURCES = src/functions1.c src/functions2.c src/functions3.c src/functions4.c\
-	src/functions5.c src/functions6.c src/functions7.c src/functions8.c
+SOURCES = functions1.c functions2.c functions3.c functions4.c\
+	functions5.c functions6.c functions7.c functions8.c
 
-BONUS_SOURCES = bonus_src/bonus_functions1.c bonus_src/bonus_functions2.c
+BONUS_SOURCES = bonus_functions1.c bonus_functions2.c
 
 OBJS = $(patsubst %.c, %.o, ${SOURCES})
 
@@ -39,8 +39,8 @@ all:	${NAME}
 ${NAME}: ${OBJS} 
 	ar rcs ${NAME} $?
 
-bonus:
-	make OBJ="${OBJS_BONUS}" all
+bonus: ${NAME} ${OBJS_BONUS}
+	ar rcs ${NAME} $?
 
 clean:
 	${RM} -f ${OBJS} ${OBJS_BONUS}

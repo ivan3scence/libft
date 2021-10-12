@@ -12,50 +12,73 @@
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+static int	ft_razryad(int	n)
 {
-	if ((c > 64 && c < 91) || (c > 96 && c < 123))
+	int	count;
+
+	count = 0;
+	while (n)
 	{
-		return (1024);
+		count++;
+		n = n / 10;
 	}
-	else
-	{
-		return (0);
-	}
+	return (count);
 }
 
-int	ft_isdigit(int c)
+static char	*ft_chzero(int	n)
 {
-	if (c > 47 && c < 58)
+	char	*str;
+
+	if (n == 0)
 	{
-		return (2048);
+		str = (char *) malloc(sizeof(char) * 2);
+		if (!str)
+			return (0);
+		str[0] = '0';
+		str[1] = '\0';
+		return (str);
 	}
-	else
-	{
-		return (0);
-	}
+	return (0);
 }
 
-int	ft_isalnum(int c)
+char	*ft_itoa(int	n)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-	{
-		return (8);
-	}
-	else
-	{
+	char		*str;
+	long int	i;
+
+	i = n;
+	if (ft_chzero(n))
+		return (ft_chzero(n));
+	n = ft_razryad(n);
+	str = (char *) malloc(sizeof(char) * (n + 2));
+	if (!str)
 		return (0);
+	if (i < 0)
+	{
+		str[0] = '-';
+		n++;
+		i = -i;
 	}
+	str[n] = '\0';
+	while (i)
+	{
+		str[--n] = i % 10 + '0';
+		i = i / 10;
+	}
+	return (str);
 }
 
-int	ft_isascii(int c)
+void	ft_striteri(char	*s, void	(*f)(unsigned int, char*))
 {
-	if (c >= 0 && c < 128)
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		f(i, &s[i]);
+}
+
+void	ft_putchar_fd(char	c, int	fd)
+{
+	if (fd != -1)
+		write(fd, &c, 1);
 }

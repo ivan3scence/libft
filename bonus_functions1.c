@@ -1,61 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions1.c                                       :+:      :+:    :+:   */
+/*   bonus_functions1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdonny <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 12:37:50 by sdonny            #+#    #+#             */
-/*   Updated: 2021/10/11 15:18:46 by sdonny           ###   ########.fr       */
+/*   Created: 2021/10/11 15:23:47 by sdonny            #+#    #+#             */
+/*   Updated: 2021/10/11 18:31:18 by sdonny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+t_list	*ft_lstnew(void	*content)
 {
-	if ((c > 64 && c < 91) || (c > 96 && c < 123))
-	{
-		return (1024);
-	}
-	else
-	{
+	t_list	*elem;
+
+	elem = (t_list *) malloc(sizeof(t_list));
+	if (!elem)
 		return (0);
-	}
+	elem->next = NULL;
+	elem->content = content;
+	return (elem);
 }
 
-int	ft_isdigit(int c)
+void	ft_lstadd_front(t_list	**lst, t_list	*new)
 {
-	if (c > 47 && c < 58)
-	{
-		return (2048);
-	}
-	else
-	{
-		return (0);
-	}
+	new->next = *lst;
+	*lst = new;
 }
 
-int	ft_isalnum(int c)
+int	ft_lstsize(t_list	*lst)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
+	int	count;
+
+	count = 0;
+	while (lst)
 	{
-		return (8);
+		count++;
+		lst = lst->next;
 	}
-	else
-	{
-		return (0);
-	}
+	return (count);
 }
 
-int	ft_isascii(int c)
+t_list	*ft_lstlast(t_list	*lst)
 {
-	if (c >= 0 && c < 128)
-	{
-		return (1);
-	}
-	else
-	{
+	if (!lst)
 		return (0);
-	}
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
