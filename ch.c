@@ -4,13 +4,26 @@
 #include "libft.h"
 
 
+
 int main()
 {
-	char **tab = ft_split("Tripouille ", ' ');
-    while (*tab)
+	char **result = ft_split("      split       this for   me  !       ", ' ');
+    
+    while (*result)
     {
-        printf("%s\n", *tab);
-        tab++;
+        printf("%s\n", *result);
+        result++;
     }
+	// char	**expected = (char*[6]){"split", "this", "for", "me", "!", NULL};
+    // while (*result) {
+    //     if (strcmp(*result, *expected)) {
+    //         printf("f");         
+    //     }
+    //     result++;
+    //     expected++;
+    // }
 
+    // printf("%s\n", ft_strtrim("", " "));
+    // printf("%s\n", *tab);
+    
 }

@@ -25,30 +25,12 @@ static int	ft_razryad(int	n)
 	return (count);
 }
 
-static char	*ft_chzero(int	n)
-{
-	char	*str;
-
-	if (n == 0)
-	{
-		str = (char *) malloc(sizeof(char) * 2);
-		if (!str)
-			return (0);
-		str[0] = '0';
-		str[1] = '\0';
-		return (str);
-	}
-	return (0);
-}
-
 char	*ft_itoa(int	n)
 {
 	char		*str;
 	long int	i;
 
 	i = n;
-	if (ft_chzero(n))
-		return (ft_chzero(n));
 	n = ft_razryad(n);
 	str = (char *) malloc(sizeof(char) * (n + 2));
 	if (!str)
@@ -60,6 +42,10 @@ char	*ft_itoa(int	n)
 		i = -i;
 	}
 	str[n] = '\0';
+	if (i == 0)
+		str[0] = '0';
+	if (i == 0)
+		str[1] = '\0';
 	while (i)
 	{
 		str[--n] = i % 10 + '0';

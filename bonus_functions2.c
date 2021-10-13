@@ -14,12 +14,14 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
+	t_list	*f;
+
 	if (!(lst && new))
 		return ;
 	if (*lst)
 	{
-		*lst = ft_lstlast(*lst);
-		(*lst)->next = new;
+		f = ft_lstlast(*lst);
+		f->next = new;
 	}
 	else
 		*lst = new;
@@ -61,23 +63,23 @@ void	ft_lstclear(t_list	**lst, void	(*del)(void	*))
 t_list	*ft_lstmap(t_list	*lst, void	*(*f)(void	*), void	(*del)(void	*))
 {
 	t_list	*elem;
-	t_list	**bl;	
+	t_list	*bl;	
 
-	elem = (t_list *) malloc(sizeof(t_list));
-	if (!elem)
+	bl = 0;
+	if (!(lst && f))
 		return (0);
-	bl = &elem;
 	while (lst)
 	{
 		elem = ft_lstnew(f(lst->content));
 		if (elem)
-			ft_lstadd_back(bl, elem);
+			ft_lstadd_back(&bl, elem);
 		else
 		{
-			ft_lstclear(bl, del);
+			ft_lstclear(&bl, del);
+			lst = 0;
 			return (0);
 		}
 		lst = lst->next;
 	}
-	return (*bl);
+	return (bl);
 }

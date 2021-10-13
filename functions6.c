@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
 char	*ft_strjoin(char const	*s1, char const	*s2)
 {
 	char	*joined;
@@ -27,6 +26,20 @@ char	*ft_strjoin(char const	*s1, char const	*s2)
 		joined[++i] = *s2++;
 	joined[++i] = '\0';
 	return (joined);
+}
+
+char	*ft_strmapi(char const	*s, char	(*f)(unsigned int, char))
+{
+	int		i;
+	char	*str;
+
+	i = -1;
+	str = ft_strdup(s);
+	if (!str)
+		return (0);
+	while (str[++i])
+		str[i] = f(i, str[i]);
+	return (str);
 }
 
 char	*ft_strtrim(char const	*s1, char const	*set)
@@ -52,98 +65,96 @@ char	*ft_strtrim(char const	*s1, char const	*set)
 	return (trimmed);
 }
 
-static void	ft_op(const char	*s, char	c, char	**array)
+static int	ft_chpus(char	***array, const char	*buf)
 {
-	int		j;
-	int		n;
-	char	*buf;
+	if (!*buf)
+	{
+		*array = (char **) malloc(sizeof(char *));
+		*(array[0]) = NULL;
+		return (1);
+	}
+	return (0);
+}
 
-	j = -1;
-	n = -1;
-	if (ft_strchr(s + 1, c))
-		buf = (char *) malloc(sizeof(char) * (ft_strchr(s + 1, c) - s));
-	else
-		buf = (char *) malloc(sizeof(char) * (ft_strchr(s + 1, 0) - s));
-	if (!buf)
+static char	**ft_cleanarr(char	**array)
+{
+	while (*array)
 	{
-		free(array);
-		return ;
+		free(*array);
+		array++;
 	}
-	while (*s)
-	{
-		if (*s == c)
-		{
-			buf[++n] = '\0';
-			if (ft_strlen(buf))
-				array[++j] = buf;
-			if (*(s + 1))
-			{
-				if (ft_strchr(s + 1, c))
-					buf = (char *) malloc(sizeof(char) * (ft_strchr(s + 1, c) - s));
-				else
-					buf = (char *) malloc(sizeof(char) * (ft_strchr(s + 1, 0) - s));
-			}
-			// else if (!ft_strlen(buf) && !(*(s + 1)))
-			// 	free(buf);
-			if (!buf)
-			{
-				free(array);
-				return ;
-			}
-			n = -1;
-		}
-		else
-			buf[++n] = *s;
-		s++;
-	}
-	if (n != -1)
-	{
-		buf[++n] = '\0';
-		array[++j] = buf;
-		// free(buf);
-	}
-	array[++j] = NULL;
-	if (n == -1 && !ft_strlen(buf))
-		free(buf);
+	return (0);
 }
 
 char	**ft_split(char const	*s, char	c)
 {
-	char	**array;
 	char	*buf;
+	// char	*sas;
+	char	cc[2];
+	char	**array;
 	int		i[2];
+	int		n;
+	int		j;
 
+	array = 0;
+	if (!s)
+		return (0);
+	i[0] = 1;
+	cc[0] = c;
+	cc[1] = '\0';
+	n = -1;
+	j = 0;
+	buf = ft_strtrim(s, cc);
+	if (ft_chpus(&array, buf))
+	{
+		free(buf);
+		return (array);
+	}
+	i[1] = ft_strlen(buf);
+	while (*(buf + 1))
+	{
+		if (ft_strchr(buf + 1, c))
+			buf = ft_strchr(buf + 1, c);
+		else
+			break ;
+		if (*(buf - 1) != c)
+			i[0]++;
+	}
+	array = (char **) malloc(sizeof(char *) * (i[0] + 1));
+	buf = ft_strchr(buf, 0) - i[1];
+	if (ft_strchr(buf + 1, c))
+		array[0] = (char *) malloc(sizeof(char) * (ft_strchr(buf + 1, c) - buf + 1));
+	else
+		array[0] = (char *) malloc(sizeof(char) * (ft_strchr(buf + 1, 0) - buf + 1));
 	i[0] = 0;
-	i[1] = 2;
-	buf = ft_strdup(s);
 	while (*buf)
 	{
-		if (*buf == c && i[0] == 1 && *(buf + 1) && *(buf + 1) != c)
-			i[1]++;
-		else if(*buf == c && *(buf + 1) && *(buf + 1) != c)
-			i[0] = 0;
-		else if (*buf != c && i[0] == 0)
-			i[0] = 1;
+		if (*buf != c)
+			array[j][++n] = *buf;
+		else if (ft_strlen(array[j]))
+		{
+			array[j][++n] = '\0';
+			if (ft_strchr(buf + 1, c))
+				array[++j] = (char *) malloc(sizeof(char) * (ft_strchr(buf + 1, c) - buf + 1));
+			else
+				array[++j] = (char *) malloc(sizeof(char) * (ft_strchr(buf + 1, 0) - buf + 1));
+			if (!array[j])
+			{
+				free(buf - i[0]);
+				return (ft_cleanarr(array));
+			}				
+			n = -1;
+		}
+		++i[0];
 		buf++;
 	}
-	free(buf - ft_strlen(s));
-	array = (char **) malloc(sizeof(char *) * i[1]);
-	if (!array)
-		return (0);
-	ft_op(s, c, array);
+	if (i[0] != i[1])
+	{
+		free(buf - i[0]);
+		return 0;
+	}
+	free(buf - i[1]);
+	array[j][++n] = '\0';
+	array[++j] = 0;
 	return (array);
-}
-
-char	*ft_strmapi(char const	*s, char	(*f)(unsigned int, char))
-{
-	int		i;
-	char	*str;
-
-	i = -1;
-	str = ft_strdup(s);
-	if (!str)
-		return (0);
-	while (str[++i])
-		str[i] = f(i, str[i]);
-	return (str);
 }
