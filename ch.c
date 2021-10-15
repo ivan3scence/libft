@@ -7,7 +7,7 @@
 
 int main()
 {
-	char **result = ft_split("      split       this for   me  !       ", ' ');
+	char **result = ft_split("  tripouille  42   ", ' ');
     
     while (*result)
     {
